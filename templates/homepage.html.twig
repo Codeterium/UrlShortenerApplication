@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>Paste the URL to be shortened</h1>
+
+    {% for message in app.flashes('success') %}
+        <div class="flash-notice alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {% for message in app.flashes('error') %}
+        <div class="flash-notice alert alert-danger">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {{ form_start(form) }}
+    <div class="formurl">
+        {{ form_widget(form) }}
+        <div class="formbutton">
+            <input class="btn" type="submit" value="Shorten URL"/>
+        </div>
+    </div>
+    {{ form_end(form) }}
+
+    {% if models %}
+        <hr>
+        <h2>Shortened URL </h2>
+        <table class="table table-bordered">
+            {% for model in models %}
+                <tr>
+                    <td>{{ model.url }}</td>
+                    <td>{{ model.short }}</td>
+                    <td>{{ model.created|date("m/d/Y") }}</td>
+                    <td>{{ model.visit }}</td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+
+    {% endblock %}
